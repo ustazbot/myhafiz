@@ -1053,3 +1053,75 @@ button, a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Working Uthmani fonts from GitHub */
+@font-face {
+  font-family: 'Uthman Naskh';
+  src: local('KFGQPC Uthman Taha Naskh'),
+       url('/fonts/UthmanTN1-Ver10.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
+}
+
+@font-face {
+  font-family: 'Uthman Naskh';
+  src: local('KFGQPC Uthman Taha Naskh Bold'),
+       url('/fonts/UthmanTN1B-Ver10.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
+}
+
+@font-face {
+  font-family: 'Uthman Hafs';
+  src: local('KFGQPC Uthmanic Script HAFS'),
+       url('/fonts/UthmanicHafs1-Ver09.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+}
+
+@font-face {
+  font-family: 'QCF_BSML';
+  src: local('QCF_BSML'),
+       url('/fonts/QCF_BSML.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+/* Enhanced Uthmani font classes with working fonts */
+.quran-text-uthmani {
+  font-family: 'Uthman Naskh', 'Uthman Hafs', 'Amiri', serif !important;
+  line-height: 2.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
+  letter-spacing: 0;
+  word-spacing: 0.1em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.quran-text-indopak {
+  font-family: 'QCF_BSML', 'Uthman Naskh', 'Amiri', serif !important;
+  line-height: 2.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  letter-spacing: 0;
+  word-spacing: 0.1em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

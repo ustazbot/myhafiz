@@ -60,14 +60,13 @@ interface QuranFoundationEdition {
 const BASE = 'https://api.quran.foundation/v1';
 const FALLBACK_BASE = 'https://api.alquran.cloud/v1';
 
-// Text cleaning function to remove unwanted characters
+// Text cleaning function to preserve ALL Uthmani characters
 function cleanArabicText(text: string): string {
   if (!text) return '';
   
-  // Remove any non-Arabic characters that might be mixed in
-  // Keep only Arabic letters, numbers, and proper punctuation
+  // ONLY remove truly problematic characters, preserve ALL diacritics and small letters
   const cleaned = text
-    .replace(/[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\u1EE00-\u1EEFF\u1EF00-\u1EFFF0-9\s\u0640\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED\u08D4\u08D5\u08E3\u08E4\u08E5\u08E6\u08E7\u08E8\u08E9\u08EA\u08EB\u08EC\u08ED\u08EE\u08EF\u08F0\u08F1\u08F2\u08F3\u08F4\u08F5\u08F6\u08F7\u08F8\u08F9\u08FA\u08FB\u08FC\u08FD\u08FE\u08FF]/g, '')
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters only
     .replace(/\s+/g, ' ') // Normalize whitespace
     .trim();
   

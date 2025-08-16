@@ -7,6 +7,19 @@ import { BookOpen, Play, Pause, Volume2, VolumeX, Settings, Bookmark, CheckCircl
 import { fetchChapters, fetchVersesByChapter, fetchAudioByChapter, Chapter, Verse, RecitationAudio } from '@/utils/quranCom';
 import { getMemorizedAyahs, toggleMemorizedAyah } from '@/utils/progress';
 
+// Text cleaning function to preserve ALL Uthmani characters
+function cleanArabicText(text: string): string {
+  if (!text) return '';
+  
+  // ONLY remove truly problematic characters, preserve ALL diacritics and small letters
+  const cleaned = text
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters only
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+  
+  return cleaned;
+}
+
 export default function QuranPage() {
   const { user } = useAuth();
   const { t, language } = useLanguage(); // Add language to destructuring
@@ -25,7 +38,8 @@ export default function QuranPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredChapters, setFilteredChapters] = useState<Chapter[]>([]);
   const [memoSet, setMemoSet] = useState<Set<number>>(new Set());
-  const [fontFamily, setFontFamily] = useState<'uthmani' | 'indopak'>('uthmani');
+  // Remove fontFamily state
+  // const [fontFamily, setFontFamily] = useState<'uthmani' | 'indopak'>('uthmani');
   
   // New state for Show/Hide functionality
   const [visibleAyahs, setVisibleAyahs] = useState<Set<number>>(new Set());
@@ -242,26 +256,34 @@ export default function QuranPage() {
     return (currentVerse / verses.length) * 100;
   }, [currentVerse, verses.length]);
 
-  // Add this useEffect to check font loading
+  // Simplified font loading - Only Uthmani fonts
   useEffect(() => {
     if ('fonts' in document) {
-      // Check if Indopak font is loaded
-      document.fonts.load('1em QCF_BSML').then(() => {
-        console.log('Indopak font (QCF_BSML) loaded successfully');
+      // Load the working Uthmani fonts
+      document.fonts.load('1em Uthman Naskh').then(() => {
+        console.log('Uthman Naskh font loaded successfully');
       }).catch((error) => {
-        console.warn('Indopak font failed to load:', error);
+        console.warn('Uthman Naskh font failed to load:', error);
+      });
+      
+      // Load Uthman Hafs as alternative
+      document.fonts.load('1em Uthman Hafs').then(() => {
+        console.log('Uthman Hafs font loaded successfully');
+      }).catch((error) => {
+        console.warn('Uthman Hafs font failed to load:', error);
       });
     }
   }, []);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (fontFamily === 'indopak') {
-      root.style.setProperty('--quran-font-family', 'QCF_BSML');
-    } else {
+    // Remove fontFamily state
+    // if (fontFamily === 'indopak') {
+    //   root.style.setProperty('--quran-font-family', 'QCF_BSML');
+    // } else {
       root.style.setProperty('--quran-font-family', 'Uthman Taha');
-    }
-  }, [fontFamily]);
+    // }
+  }, []);
 
   if (!user) {
     return (
@@ -443,22 +465,8 @@ export default function QuranPage() {
                     </button>
                   </div>
                   
-                  {/* Font controls in responsive grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                    <div className="flex flex-col space-y-1">
-                      <label className="text-xs sm:text-sm font-medium text-gray-700">
-                        {t('fontStyle')}:
-                      </label>
-                      <select
-                        value={fontFamily}
-                        onChange={(e) => setFontFamily(e.target.value as 'uthmani' | 'indopak')}
-                        className="px-2 sm:px-3 py-2 border border-gray-300 rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      >
-                        <option value="uthmani">{t('uthmaniQPC')}</option>
-                        <option value="indopak">{t('indopak')}</option>
-                      </select>
-                    </div>
-                    
+                  {/* Font controls - Only size control now */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <div className="flex flex-col space-y-1">
                       <label className="text-xs sm:text-sm font-medium text-gray-700">
                         {t('size')}:
@@ -566,14 +574,23 @@ export default function QuranPage() {
                         {/* Ayah Content - Mobile responsive */}
                         {visibleAyahs.has(verse.id) && (
                           <div className="p-3 sm:p-6">
-                            {/* Arabic Text */}
+                            {/* Arabic Text - Always use Uthmani now */}
                             <div className="quran-ayah-bg mb-3 sm:mb-4">
                               <p
                                 dir="rtl"
                                 lang="ar"
-                                className={`quran-text-${fontFamily} quran-text-enhanced ${fontSize} text-black leading-relaxed`}
+                                className="quran-text-uthmani quran-text-enhanced text-black leading-relaxed"
+                                style={{
+                                  fontFamily: "'Uthman Naskh', 'Uthman Hafs', 'Amiri', serif",
+                                  direction: 'rtl',
+                                  textAlign: 'justify',
+                                  textAlignLast: 'center',
+                                  lineHeight: '2.5',
+                                  letterSpacing: '0',
+                                  wordSpacing: '0.1em'
+                                }}
                               >
-                                {fontFamily === 'uthmani' ? verse.text_uthmani : verse.text_indopak}
+                                {verse.text_uthmani}
                               </p>
                             </div>
 
