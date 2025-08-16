@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
   
   // Ensure proper module resolution
   webpack: (config, { isServer }) => {
-    // Add fallbacks for better compatibility
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
