@@ -29,6 +29,7 @@ export default function QuranPage() {
   const [selectedChapter, setSelectedChapter] = useState<Chapter | null>(null);
   const [verses, setVerses] = useState<Verse[]>([]);
   const [currentVerse, setCurrentVerse] = useState<number>(1);
+  // Fix font size state - remove responsive classes
   const [fontSize, setFontSize] = useState<'text-xl' | 'text-2xl' | 'text-3xl' | 'text-4xl'>('text-3xl');
   const [script, setScript] = useState<'quran-uthmani' | 'quran-indopak'>('quran-uthmani');
   const [showTranslation, setShowTranslation] = useState(true);
@@ -465,7 +466,7 @@ export default function QuranPage() {
                     </button>
                   </div>
                   
-                  {/* Font controls - Only size control now */}
+                  {/* Font controls - Fixed size control */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <div className="flex flex-col space-y-1">
                       <label className="text-xs sm:text-sm font-medium text-gray-700">
@@ -473,13 +474,13 @@ export default function QuranPage() {
                       </label>
                       <select
                         value={fontSize}
-                        onChange={(e) => setFontSize(e.target.value as any)}
+                        onChange={(e) => setFontSize(e.target.value as 'text-xl' | 'text-2xl' | 'text-3xl' | 'text-4xl')}
                         className="px-2 sm:px-3 py-2 border border-gray-300 rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       >
-                        <option value="text-lg sm:text-xl">{t('small')}</option>
-                        <option value="text-xl sm:text-2xl">{t('medium')}</option>
-                        <option value="text-2xl sm:text-3xl">{t('large')}</option>
-                        <option value="text-3xl sm:text-4xl">{t('extraLarge')}</option>
+                        <option value="text-xl">{t('small')}</option>
+                        <option value="text-2xl">{t('medium')}</option>
+                        <option value="text-3xl">{t('large')}</option>
+                        <option value="text-4xl">{t('extraLarge')}</option>
                       </select>
                     </div>
                   </div>
@@ -574,12 +575,12 @@ export default function QuranPage() {
                         {/* Ayah Content - Mobile responsive */}
                         {visibleAyahs.has(verse.id) && (
                           <div className="p-3 sm:p-6">
-                            {/* Arabic Text - Always use Uthmani now */}
+                            {/* Arabic Text - Fixed font size implementation */}
                             <div className="quran-ayah-bg mb-3 sm:mb-4">
                               <p
                                 dir="rtl"
                                 lang="ar"
-                                className="quran-text-uthmani quran-text-enhanced text-black leading-relaxed"
+                                className={`quran-text-uthmani quran-text-enhanced text-black leading-relaxed ${fontSize}`}
                                 style={{
                                   fontFamily: "'Uthman Naskh', 'Uthman Hafs', 'Amiri', serif",
                                   direction: 'rtl',
