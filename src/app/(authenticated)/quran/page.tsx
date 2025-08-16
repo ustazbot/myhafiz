@@ -93,6 +93,13 @@ export default function QuranPage() {
 
   // Handle chapter selection
   const handleChapterSelect = (chapter: Chapter) => {
+    // Stop any currently playing audio
+    const audioElement = document.getElementById('quran-audio') as HTMLAudioElement;
+    if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    }
+    
     setSelectedChapter(chapter);
     setCurrentVerse(1);
     setIsMuted(false); // Reset mute state when chapter changes
@@ -153,24 +160,20 @@ export default function QuranPage() {
     if (!selectedChapter) return;
 
     if (playingAyah === verseId) {
-      // Pause current ayah (don't stop completely)
+      // Pause current ayah
       const audioElement = document.getElementById('quran-audio') as HTMLAudioElement;
       if (audioElement) {
         audioElement.pause();
       }
       setPlayingAyah(null); // Clear playing state to show play button
-      setAudioUrl(''); // Clear audio URL when pausing
     } else {
       try {
-        // If we already have audio URL for this verse, just resume
-        if (audioUrl && audioUrl.trim() !== '') {
+        // Auto-stop any currently playing ayah
+        if (playingAyah !== null) {
           const audioElement = document.getElementById('quran-audio') as HTMLAudioElement;
           if (audioElement) {
-            audioElement.play().catch(error => {
-              console.error('Resume play failed:', error);
-            });
-            setPlayingAyah(verseId);
-            return;
+            audioElement.pause();
+            audioElement.currentTime = 0; // Reset to beginning
           }
         }
 
@@ -183,7 +186,8 @@ export default function QuranPage() {
         if (currentVerseAudio && currentVerseAudio.url && currentVerseAudio.url.trim() !== '') {
           setAudioUrl(currentVerseAudio.url);
           setPlayingAyah(verseId);
-          // Auto-play the audio
+          
+          // Auto-play the new audio
           setTimeout(() => {
             const audioElement = document.getElementById('quran-audio') as HTMLAudioElement;
             if (audioElement) {
@@ -202,6 +206,17 @@ export default function QuranPage() {
   // Toggle mute
   const toggleMute = () => {
     setIsMuted(!isMuted);
+  };
+
+  // Handle audio ending
+  const handleAudioEnded = () => {
+    setPlayingAyah(null);
+  };
+
+  // Handle audio error
+  const handleAudioError = () => {
+    setPlayingAyah(null);
+    console.error('Audio playback error');
   };
 
   // Load existing memorization data for the selected chapter
@@ -265,10 +280,23 @@ export default function QuranPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6EFD2] p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Responsive Grid Layout - Chapter selection moved to top */}
-        <div className="space-y-4 sm:space-y-6">
+    <>
+      {/* Hidden Audio Element - No separate player */}
+      {audioUrl && audioUrl.trim() !== '' && (
+        <audio
+          id="quran-audio"
+          src={audioUrl}
+          onEnded={handleAudioEnded}
+          onError={handleAudioError}
+          muted={isMuted}
+          className="hidden"
+        />
+      )}
+      
+      <div className="min-h-screen bg-[#F6EFD2] p-4 sm:p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Responsive Grid Layout - Chapter selection moved to top */}
+          <div className="space-y-4 sm:space-y-6">
           {/* Chapter Selection - Now at the top */}
           <div className="bg-white rounded-2xl shadow-lg border border-[#E2DDB4] overflow-hidden">
             {/* Mobile-friendly header */}
@@ -742,5 +770,6 @@ export default function QuranPage() {
         )}
       </div>
     </div>
+    </>
   );
 }
