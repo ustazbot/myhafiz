@@ -169,7 +169,7 @@ export default function LoginForm() {
                   <span>Signing in...</span>
                 </div>
               ) : (
-                <span>{t('loginButton')}</span>
+                <span>Login</span>
               )}
             </button>
           </div>
