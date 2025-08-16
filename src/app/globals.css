@@ -1,26 +1,1055 @@
 @import "tailwindcss";
 
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap');
+
+/* Import Quran fonts for proper Uthmani display */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+/* High-quality Quran fonts - Same sources as quran.com */
+@font-face {
+  font-family: 'Uthman Taha';
+  src: url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Regular.woff2') format('woff2'),
+       url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Regular.woff') format('woff'),
+       url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  font-synthesis: none;
+}
+
+@font-face {
+  font-family: 'Uthman Taha';
+  src: url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Bold.woff2') format('woff2'),
+       url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Bold.woff') format('woff'),
+       url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  font-synthesis: none;
+}
+
+/* Alternative high-quality Uthmani fonts */
+@font-face {
+  font-family: 'KFGQPC Uthman Taha';
+  src: url('https://fonts.qurancomplex.gov.sa/KFGQPC_Uthman_Taha_Naskh.woff2') format('woff2'),
+       url('https://fonts.qurancomplex.gov.sa/KFGQPC_Uthman_Taha_Naskh.woff') format('woff'),
+       url('https://fonts.qurancomplex.gov.sa/KFGQPC_Uthman_Taha_Naskh.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  font-synthesis: none;
+}
+
+/* QCF_BSML for IndoPak script */
+@font-face {
+  font-family: 'QCF_BSML';
+  src: url('https://fonts.qurancomplex.gov.sa/QCF_BSML.woff2') format('woff2'),
+       url('https://fonts.qurancomplex.gov.sa/QCF_BSML.woff') format('woff'),
+       url('https://fonts.qurancomplex.gov.sa/QCF_BSML.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  font-synthesis: none;
+}
+
+/* Fallback fonts from Google Fonts */
+@font-face {
+  font-family: 'Amiri';
+  src: url('https://fonts.gstatic.com/s/amiri/v24/J7aRnpd8CGxBHpUrtLMA7w.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('https://fonts.gstatic.com/s/scheherazadenew/v26/ieVc2YlNMt1I8Y5mrEV2QGT5Uf6WnIzP7YwGedfZgPw.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Enhanced design system with new color palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors - Deep Blue (#1D4ED8) */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  
+  /* Secondary Colors - Gold/Yellow (#FACC15) */
+  --accent-50: #fffbeb;
+  --accent-100: #fef3c7;
+  --accent-200: #fde68a;
+  --accent-300: #fcd34d;
+  --accent-400: #facc15;
+  --accent-500: #eab308;
+  --accent-600: #ca8a04;
+  --accent-700: #a16207;
+  --accent-800: #854d0e;
+  --accent-900: #713f12;
+  
+  /* Neutral Colors */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  
+  /* Background Colors */
+  --bg-light: #ffffff;
+  --bg-dark: #111827;
+  
+  /* Text Colors */
+  --text-primary-light: #111827;
+  --text-secondary-light: #4b5563;
+  --text-muted-light: #6b7280;
+  --text-primary-dark: #f9fafb;
+  --text-secondary-dark: #d1d5db;
+  --text-muted-dark: #9ca3af;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark mode variables */
+.dark {
+  --bg-light: #111827;
+  --bg-dark: #ffffff;
+  --text-primary-light: #f9fafb;
+  --text-secondary-light: #d1d5db;
+  --text-muted-light: #9ca3af;
+  --text-primary-dark: #111827;
+  --text-secondary-dark: #4b5563;
+  --text-muted-dark: #6b7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base styles - AlQuran.cloud inspired readability */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+    line-height: 1.6;
+    color: var(--text-primary-light);
+    background-color: var(--bg-light);
+  }
+  
+  .dark body {
+    color: var(--text-primary-dark);
+    background-color: var(--bg-dark);
+  }
+  
+  /* Enhanced focus states for accessibility */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px white;
+  }
+  
+  .dark *:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px var(--neutral-900);
+  }
+  
+  /* Better text rendering */
+  * {
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Quran text styling - Professional quality like quran.com and tanzil.net */
+  .quran-text {
+    font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+    line-height: 2.5;
+    text-align: justify;
+    text-align-last: center;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+    letter-spacing: 0.02em;
+    word-spacing: 0.1em;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .quran-text-arabic {
+    font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+    line-height: 3.5;
+    text-align: justify;
+    text-align-last: center;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+    letter-spacing: 0.05em;
+    word-spacing: 0.15em;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Uthmani font class */
+  .quran-text-uthmani {
+    font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+    line-height: 3.5;
+    text-align: justify;
+    text-align-last: center;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+    letter-spacing: 0.05em;
+    word-spacing: 0.15em;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Indopak font class */
+  .quran-text-indopak {
+    font-family: 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+    line-height: 3.5;
+    text-align: justify;
+    text-align-last: center;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+    letter-spacing: 0.05em;
+    word-spacing: 0.15em;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Special Quran font classes for different scripts */
+  .qpc-uthman {
+    font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', serif;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+    font-synthesis: none;
+  }
+  
+  .qcf-font {
+    font-family: 'QCF_BSML', serif;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+    font-synthesis: none;
+  }
+  
+  /* Font family utilities */
+  .font-quran {
+    font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+    font-synthesis: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Component styles - Enhanced design with new color palette */
+@layer components {
+  /* Enhanced button styles */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    border-radius: 0.75rem;
+    transition: all 0.3s;
+    transform: scale(1);
+    box-shadow: 0 4px 6px -1px rgba(29, 78, 216, 0.2), 0 2px 4px -1px rgba(29, 78, 216, 0.1);
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(29, 78, 216, 0.3), 0 4px 6px -2px rgba(29, 78, 216, 0.2);
+  }
+  
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-700);
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+    border: 2px solid var(--primary-200);
+    border-radius: 0.75rem;
+    transition: all 0.3s;
+    transform: scale(1);
+    box-shadow: 0 2px 4px -1px rgba(29, 78, 216, 0.1);
+  }
+  
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+    border-color: var(--primary-300);
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px -2px rgba(29, 78, 216, 0.15);
+  }
+  
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--neutral-600);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  
+  .btn-ghost:hover {
+    color: var(--neutral-900);
+    background-color: var(--neutral-100);
+  }
+  
+  .btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    background: linear-gradient(135deg, var(--accent-400) 0%, var(--accent-500) 100%);
+    border-radius: 0.75rem;
+    transition: all 0.3s;
+    transform: scale(1);
+    box-shadow: 0 4px 6px -1px rgba(250, 204, 21, 0.3), 0 2px 4px -1px rgba(250, 204, 21, 0.2);
+  }
+  
+  .btn-accent:hover {
+    background: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-600) 100%);
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(250, 204, 21, 0.4), 0 4px 6px -2px rgba(250, 204, 21, 0.3);
+  }
+  
+  .btn-accent:active {
+    transform: scale(0.98);
+  }
+  
+  /* Minimalist card styles */
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--neutral-200);
+    transition: all 0.2s;
+  }
+  
+  .dark .card {
+    background-color: var(--neutral-800);
+    border-color: var(--neutral-700);
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .card-elevated {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--neutral-200);
+    transition: all 0.2s;
+  }
+  
+  .dark .card-elevated {
+    background-color: var(--neutral-800);
+    border-color: var(--neutral-700);
+  }
+  
+  .card-elevated:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-minimal {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid var(--neutral-200);
+    transition: all 0.2s;
+  }
+  
+  .dark .card-minimal {
+    background-color: var(--neutral-800);
+    border-color: var(--neutral-700);
+  }
+  
+  /* Minimalist input styles */
+  .input-minimal {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--neutral-900);
+    background-color: white;
+    border: 1px solid var(--neutral-300);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  
+  .dark .input-minimal {
+    color: var(--neutral-100);
+    background-color: var(--neutral-800);
+    border-color: var(--neutral-600);
+  }
+  
+  .input-minimal:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px white;
+    border-color: var(--primary-500);
+  }
+  
+  .dark .input-minimal:focus {
+    box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px var(--neutral-900);
+    border-color: var(--primary-400);
+  }
+  
+  .input-minimal::placeholder {
+    color: var(--neutral-500);
+  }
+  
+  .dark .input-minimal::placeholder {
+    color: var(--neutral-400);
+  }
+  
+  /* Minimalist navigation styles */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--neutral-600);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  
+  .dark .nav-link {
+    color: var(--neutral-400);
+  }
+  
+  .nav-link:hover {
+    color: var(--primary-600);
+    background-color: var(--primary-50);
+  }
+  
+  .dark .nav-link:hover {
+    color: var(--primary-400);
+    background-color: rgba(37, 99, 235, 0.1);
+  }
+  
+  .nav-link-active {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--primary-700);
+    background-color: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    border-radius: 0.5rem;
+  }
+  
+  .dark .nav-link-active {
+    color: var(--primary-300);
+    background-color: rgba(37, 99, 235, 0.2);
+    border-color: var(--primary-700);
+  }
+  
+  /* Minimalist badge styles */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+  }
+  
+  .badge-primary {
+    background-color: var(--primary-100);
+    color: var(--primary-800);
+  }
+  
+  .dark .badge-primary {
+    background-color: rgba(37, 99, 235, 0.2);
+    color: var(--primary-300);
+  }
+  
+  .badge-accent {
+    background-color: var(--accent-100);
+    color: var(--accent-800);
+  }
+  
+  .dark .badge-accent {
+    background-color: rgba(251, 191, 36, 0.2);
+    color: var(--accent-300);
+  }
+  
+  .badge-neutral {
+    background-color: var(--neutral-100);
+    color: var(--neutral-800);
+  }
+  
+  .dark .badge-neutral {
+    background-color: var(--neutral-700);
+    color: var(--neutral-300);
+  }
+  
+  /* Section containers */
+  .section-container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  @media (min-width: 640px) {
+    .section-container {
+      padding: 0 2rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .section-container {
+      padding: 0 3rem;
+    }
+  }
+  
+  .section-spacing {
+    padding: 4rem 0;
+  }
+  
+  @media (min-width: 640px) {
+    .section-spacing {
+      padding: 5rem 0;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .section-spacing {
+      padding: 6rem 0;
+    }
+  }
+  
+  /* Content spacing */
+  .content-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  @media (min-width: 640px) {
+    .content-spacing {
+      gap: 2.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .content-spacing {
+      gap: 3rem;
+    }
+  }
+  
+  .content-spacing-sm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 640px) {
+    .content-spacing-sm {
+      gap: 2rem;
+    }
+  }
+  
+  .content-spacing-lg {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  @media (min-width: 640px) {
+    .content-spacing-lg {
+      gap: 4rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .content-spacing-lg {
+      gap: 5rem;
+    }
+  }
+}
+
+/* Utility classes - Tarteel.ai inspired spacing */
+@layer utilities {
+  /* Typography utilities */
+  .text-display {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  
+  @media (min-width: 640px) {
+    .text-display {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .text-display {
+      font-size: 3.75rem;
+    }
+  }
+  
+  .text-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  
+  @media (min-width: 640px) {
+    .text-heading {
+      font-size: 1.875rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .text-heading {
+      font-size: 2.25rem;
+    }
+  }
+  
+  .text-subheading {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  @media (min-width: 640px) {
+    .text-subheading {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  @media (min-width: 640px) {
+    .text-body {
+      font-size: 1.125rem;
+    }
+  }
+  
+  .text-caption {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  
+  /* Spacing utilities */
+  .spacing-xs { gap: 1rem; }
+  .spacing-sm { gap: 1.5rem; }
+  .spacing-md { gap: 2rem; }
+  .spacing-lg { gap: 3rem; }
+  .spacing-xl { gap: 4rem; }
+  
+  /* Padding utilities */
+  .padding-xs { padding: 1rem; }
+  .padding-sm { padding: 1.5rem; }
+  .padding-md { padding: 2rem; }
+  .padding-lg { padding: 3rem; }
+  .padding-xl { padding: 4rem; }
+  
+  /* Margin utilities */
+  .margin-xs { margin: 1rem; }
+  .margin-sm { margin: 1.5rem; }
+  .margin-md { margin: 2rem; }
+  .margin-lg { margin: 3rem; }
+  .margin-xl { margin: 4rem; }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Hover effects */
+  .hover-lift {
+    transition: all 0.2s;
+    transform: scale(1);
+  }
+  
+  .hover-lift:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .hover-glow {
+    transition: all 0.2s;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+  }
+  
+  /* Loading animations */
+  .animate-pulse-slow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.4s ease-out;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced mobile touch targets */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--neutral-100);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: var(--neutral-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-300);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--neutral-400);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--neutral-500);
+}
+
+/* Focus ring utilities */
+.focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px white;
+}
+
+.dark .focus-ring {
+  box-shadow: 0 0 0 2px var(--primary-600), 0 0 0 4px var(--neutral-900);
+}
+
+/* Text selection */
+::selection {
+  background-color: var(--primary-100);
+  color: var(--primary-900);
+}
+
+.dark ::selection {
+  background-color: rgba(37, 99, 235, 0.2);
+  color: var(--primary-100);
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Quran Text Styles - AlQuran.cloud and Tanzil.net inspired */
+.quran-text {
+  font-family: 'QPC Uthman Taha', 'KFGQPC Uthman Taha', 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+  line-height: 2.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1;
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+}
+
+.quran-text-arabic {
+  font-family: 'QPC Uthman Taha', 'KFGQPC Uthman Taha', 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+  line-height: 3.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* Specific Quran font classes */
+.qpc-uthman {
+  font-family: 'QPC Uthman Taha', 'KFGQPC Uthman Taha', serif;
+}
+
+.qcf-font {
+  font-family: 'QCF_BSML', serif;
+}
+
+.font-quran {
+  font-family: 'QPC Uthman Taha', 'KFGQPC Uthman Taha', 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+}
+
+/* Font loading optimization - Same strategy as quran.com */
+@font-face {
+  font-family: 'Uthman Taha';
+  src: url('https://fonts.qurancomplex.gov.sa/UthmanTahaNaskh-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  font-synthesis: none;
+}
+
+/* Font loading states for better UX */
+.font-loading {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.font-loaded {
+  opacity: 1;
+}
+
+/* Enhanced Quran text readability - Professional quality like quran.com */
+.quran-text-enhanced {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  filter: contrast(1.1);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.dark .quran-text-enhanced {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  filter: contrast(1.05);
+}
+
+/* Quran ayah background for better readability */
+.quran-ayah-bg {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .quran-ayah-bg {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border: 1px solid #475569;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive font sizing for Quran text */
+@media (max-width: 640px) {
+  .quran-text-arabic {
+    line-height: 2.8;
+    letter-spacing: 0.03em;
+    word-spacing: 0.1em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .quran-text-arabic {
+    line-height: 4rem;
+    letter-spacing: 0.06em;
+    word-spacing: 0.2em;
+  }
+}
+
+/* Additional font optimization for Arabic text */
+.quran-text-arabic {
+  font-variant-ligatures: contextual;
+  font-variant-numeric: oldstyle-nums;
+  font-variant-east-asian: traditional;
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  -moz-font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+}
+
+/* Font loading optimization */
+@supports (font-display: swap) {
+  .quran-text-arabic {
+    font-display: swap;
+  }
+}
+
+/* Enhanced contrast for better readability */
+.quran-text-enhanced {
+  color: #1f2937;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  filter: contrast(1.1) brightness(1.05);
+}
+
+.dark .quran-text-enhanced {
+  color: #f9fafb;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  filter: contrast(1.05) brightness(1.02);
+}
+
+/* Force font loading with !important */
+.quran-text-arabic,
+.quran-text,
+.qpc-uthman,
+.qcf-font,
+.font-quran {
+  font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+}
+
+/* Uthmani font class */
+.quran-text-uthmani {
+  font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+  line-height: 3.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Indopak font class */
+.quran-text-indopak {
+  font-family: 'QCF_BSML', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+  line-height: 3.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Keep the original class for backward compatibility */
+.quran-text-arabic {
+  font-family: 'Uthman Taha', 'KFGQPC Uthman Taha', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+  line-height: 3.5;
+  text-align: justify;
+  text-align-last: center;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1, 'ss01' 1;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
